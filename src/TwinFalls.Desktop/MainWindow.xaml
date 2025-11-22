@@ -1,0 +1,11 @@
+<Window x:Class="TwinFalls.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TwinFalls - Desktop" Height="450" Width="800">
+    <Grid>
+        <StackPanel Margin="12">
+            <TextBlock FontSize="20" Text="TwinFalls - Transactions" />
+            <Button x:Name="SyncButton" Content="Sync now" Width="120" Margin="0,8,0,0" />
+        </StackPanel>
+    </Grid>
+</Window>

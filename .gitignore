@@ -1,0 +1,80 @@
+# Visual Studio / .NET
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+[Bb]in/
+[Oo]bj/
+**/bin/
+**/obj/
+artifacts/
+publish/
+
+# NuGet
+*.nupkg
+packages/
+.nuget/
+
+# Rider
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/
+
+# User secrets / local configuration
+secrets.json
+*.usersecrets
+appsettings.*.Local.json
+appsettings.*.Local
+
+# SQLite & local DBs (ignore local database files created during development)
+*.db
+*.sqlite
+*.sqlite3
+*.db3
+
+# Test output
+TestResults/
+*.trx
+*.coverage
+coverage/
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Mobile / MAUI / Android / iOS
+*.apk
+*.aab
+*.ipa
+*.app
+*.dSYM/
+local.properties
+.gradle/
+gradle/
+/.caches/
+
+# JetBrains Rider
+/.idea/
+*.iws
+
+# Misc
+*.vsix
+*.cache
+*.zip
+node_modules/
+
+# Generated installer files
+*.msi
+
+# Ignore Rider/IDE workspace files
+*.sln.DotSettings.user
