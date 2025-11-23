@@ -1,10 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    The mobile project targets MAUI frameworks when the DOTNET_MAUI_AVAILABLE property
+    is provided (set by CI or developer machine with workloads installed).
+    On machines without MAUI workloads this project will fall back to a simple
+    net8.0 target and compile a minimal placeholder `Program.Fallback.cs`.
+  -->
   <PropertyGroup>
-    <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+    <!-- Always have a sensible default target so MSBuild doesn't see a blank value -->
+    <TargetFramework>net9.0</TargetFramework>
+    <!-- When MAUI workloads are available, switch to the multi-target MAUI TFMs -->
+    <TargetFrameworks Condition="'$(DOTNET_MAUI_AVAILABLE)'=='true'">net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <UseMaui>true</UseMaui>
+    <UseMaui Condition="'$(DOTNET_MAUI_AVAILABLE)'=='true'">true</UseMaui>
+    <!-- Define constant to allow conditional compilation inside sources -->
+    <DefineConstants Condition="'$(DOTNET_MAUI_AVAILABLE)'=='true'">$(DefineConstants);DOTNET_MAUI_AVAILABLE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\TwinFalls.Application\TwinFalls.Application.csproj" />
@@ -13,5 +24,17 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.0" />
+    <PackageReference Include="System.Text.Json" Version="10.0.0" />
+  </ItemGroup>
+  <!-- When MAUI workloads are not available, exclude MAUI-specific XAML and code-behind
+       so the project can build in fallback mode. -->
+  <ItemGroup Condition="'$(DOTNET_MAUI_AVAILABLE)'!='true'">
+    <Compile Remove="Program.cs" />
+    <Compile Remove="App.xaml.cs" />
+    <Compile Remove="MainPage.xaml.cs" />
+    <None Remove="App.xaml" />
+    <None Remove="MainPage.xaml" />
+    <EmbeddedResource Remove="**\*.xaml" />
   </ItemGroup>
 </Project>
